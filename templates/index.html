@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drinks Inventory</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+  <body class="container-fluid bg-primary text-white" style="background-color: blue; ">
+      <h2 class="text-center">Welcome to Drinks Inventory</h2>
+      <div class="d-flex justify-content-center align-items-center p-2">
+        <h3 class="text-white">Manage your drinks inventory easily!</h3>
+      </div>
+      
+       
+      <div class="row mb-2 m-2 w-100">
+        <div class="col-sm-2  w-100">
+          <div style="display: flex; align-items: center; justify-content: flex-end; width: 100%;" class="col-sm-1">
+            <button
+              class="btn btn-primary text-center "
+              data-bs-toggle="modal"
+              data-bs-target="#newDrinkModal"
+              style="transition: transform 0.2s; margin-left: 10px; display: flex; align-items: center; justify-content: center;"
+              >Add a drink
+              </button>
+      
+              {% with messages = get_flashed_messages() %}
+              {% if messages %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+              {% for message in messages %}
+              <div>
+              {{ message }}
+            <button type="button" class="Close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+     {% endfor %}
+    </div>
+    {% endif %}
+      {% endwith %}
+                
+         
+
+          <div class="modal fade" role="dialog" id="newDrinkModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2>Enter New Drink</h2>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="mo"></div>
+                <div class="modal-body">
+                  <form action="{{url_for('insert')}}" method="POST">
+                    <div class="form-group">
+                      <label for="drink_name">Name of Drink</label>
+                      <input
+                        placeholder="Name of Drink"
+                        type="text"
+                        class="form-control"
+                        id="name_of_drink"
+                        name="name_of_drink"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="drink_name">Price of Drink</label>
+                      <input
+                        placeholder="Price"
+                        type="number"
+                        class="form-control"
+                        id="price"
+                        name="price"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="drink_name">Quantity Recieved</label>
+                      <input
+                        placeholder="Quantity"
+                        type="number"
+                        class="form-control"
+                        id="quantity"
+                        name="quantity"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="drink_name">Expiry Date</label>
+                      <input
+                        placeholder="Expiry Date"
+                        type="text"
+                        class="form-control"
+                        id="expiry_date"
+                        name="expiry_date"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="drink_name">Badge Number</label>
+                      <input
+                        placeholder="Batch Number"
+                        type="number"
+                        class="form-control"
+                        id="batch_number"
+                        name="batch_number"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="drink_name">Drink Subtype</label>
+                      <input
+                        placeholder="Drink Subtype"
+                        type="number"
+                        class="form-control"
+                        id="drink_subtype"
+                        name="drink_subtype"
+                        required
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary " >
+                      Add Drink
+                    </button>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="display" style="width: 100%;" id="mytable">
+        <thead>
+          <tr>
+            <th>Name of drink</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Expiry date</th>
+            <th>Batch Number</th>
+            <th>Drink Subtype</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+          <tbody>
+              {% for drink in drinks %}
+              <tr>
+                <td>{{drink.1}}</td>
+                <td>{{drink.2}}</td>
+                <td>{{drink.3}}</td>
+                <td>{{drink.4}}</td>
+                <td>{{drink.5}}</td>
+                <td>{{drink.6}}</td>
+                <td>
+                  <a href="{{url_for('edit', id=drink[0]) }}" class="btn btn-warning">Edit</a>
+                  <a href="{{url_for('delete', id=drink[0]) }}" class="btn btn-danger">Delete</a>
+
+                </td>
+              </tr>
+              {%endfor %}
+          </tbody>
+    </table>
+    </div>
+
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
